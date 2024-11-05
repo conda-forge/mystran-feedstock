@@ -14,18 +14,14 @@ source:
     folder: superlu
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
-    - {{ stdlib('c') }}                 # [unix]
-    - {{ compiler('c') }}               # [unix]
-    - {{ compiler('cxx') }}             # [unix]
-    - {{ compiler('fortran') }}         # [unix]
-    - {{ stdlib('m2w64_c') }}           # [win]
-    - {{ compiler('m2w64_c') }}         # [win]
-    - {{ compiler('m2w64_cxx') }}       # [win]
-    - {{ compiler('m2w64_fortran') }}   # [win]
+    - {{ stdlib("c") }}
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - {{ compiler("fortran") }}
     - m2-make                           # [win]
     - make                              # [not win]
     - cmake
@@ -53,20 +49,20 @@ about:
   license: MIT
   license_file: LICENSE.txt
   description: |
-    MYSTRAN is a general purpose finite element analysis computer program 
-    for structures that can be modeled as linear (i.e. displacements, forces 
-    and stresses proportional to applied load). MYSTRAN is an acronym for 
-    "My Structural Analysis", to indicate it's usefulness in solving a wide 
-    variety of finite element analysis problems. For anyone familiar with the 
-    popular NASTRAN computer program developed by NASA (National Aeronautics 
-    and Space Administration) in the 1970's and popularized in several 
-    commercial versions since, the input to MYSTRAN will look quite familiar. 
-    Indeed, many structural analyses modeled for execution in NASTRAN will 
-    execute in MYSTRAN with little, or no, modification. MYSTRAN, however, 
-    is not NASTRAN. All of the finite element processing to obtain the global 
-    stiffness matrix (including the finite element matrix generation routines 
-    themselves), the reduction of the stiffness matrix to the solution set, as 
-    well as all of the input/output routines are written in independent, modern, 
+    MYSTRAN is a general purpose finite element analysis computer program
+    for structures that can be modeled as linear (i.e. displacements, forces
+    and stresses proportional to applied load). MYSTRAN is an acronym for
+    "My Structural Analysis", to indicate it's usefulness in solving a wide
+    variety of finite element analysis problems. For anyone familiar with the
+    popular NASTRAN computer program developed by NASA (National Aeronautics
+    and Space Administration) in the 1970's and popularized in several
+    commercial versions since, the input to MYSTRAN will look quite familiar.
+    Indeed, many structural analyses modeled for execution in NASTRAN will
+    execute in MYSTRAN with little, or no, modification. MYSTRAN, however,
+    is not NASTRAN. All of the finite element processing to obtain the global
+    stiffness matrix (including the finite element matrix generation routines
+    themselves), the reduction of the stiffness matrix to the solution set, as
+    well as all of the input/output routines are written in independent, modern,
     Fortran 90/95 code.
   doc_url: https://github.com/MYSTRANsolver/MYSTRAN/tree/main
 
