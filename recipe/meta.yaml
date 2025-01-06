@@ -22,13 +22,11 @@ requirements:
     - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - {{ compiler("fortran") }}
-    - m2-make                           # [win]
     - make                              # [not win]
+    - ninja                             # [win]
     - cmake
-
   host:
     # - superlu # we need dgssv from superlu which is not bundled with conda-forge superlu
-
 
 test:
   source_files:
