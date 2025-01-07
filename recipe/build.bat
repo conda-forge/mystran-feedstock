@@ -9,10 +9,10 @@ cmake -B build -S %SRC_DIR% ^
 
 if %ERRORLEVEL% neq 0 exit 1
 
-cmake --build build --parallel 2
+cmake --build build -j %NUMBER_OF_PROCESSORS%
 if %ERRORLEVEL% neq 0 exit 1
 
-cmake --install build --parallel 2
+cmake --install build
 if %ERRORLEVEL% neq 0 exit 1
 
 mkdir %LIBRARY_PREFIX%\bin
