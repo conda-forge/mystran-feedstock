@@ -3,6 +3,9 @@
 mkdir build
 cd build
 
+set "CC=clang-cl"
+set "CXX=clang-cl"
+
 cmake -G "Ninja" ^
       -D CMAKE_BUILD_TYPE="Release" ^
       -D CMAKE_INSTALL_PREFIX:FILEPATH=%LIBRARY_PREFIX% ^
