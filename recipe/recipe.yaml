@@ -1,52 +1,50 @@
-{% set name = "mystran" %}
-{% set version = "15.2.1" %}
+context:
+  name: mystran
+  version: 15.2.1
 
 package:
-  name: {{ name }}
-  version: {{ version }}
+  name: ${{ name }}
+  version: ${{ version }}
 
 source:
-  - url: https://github.com/MYSTRANsolver/MYSTRAN/archive/refs/tags/{{ version }}.tar.gz
+  - url: https://github.com/MYSTRANsolver/MYSTRAN/archive/refs/tags/${{ version }}.tar.gz
     sha256: 889ee74b5f17a85cff77aa0ffe4f47ff7d918325d113a68e73f856a766682d0f
     patches:
       - patches/f2c.patch
-
   - url: https://github.com/xiaoyeli/superlu/archive/refs/tags/v6.0.1.tar.gz
     sha256: 6c5a3a9a224cb2658e9da15a6034eed44e45f6963f5a771a6b4562f7afb8f549
-    folder: superlu
+    target_directory: superlu
 
 build:
   number: 1
 
 requirements:
   build:
-    - {{ stdlib("c") }}
-    - {{ compiler("c") }}
-    - {{ compiler("cxx") }}
-    - {{ compiler("fortran") }}
-    - make                              # [not win]
-    - ninja                             # [win]
+    - ${{ stdlib("c") }}
+    - ${{ compiler("c") }}
+    - ${{ compiler("cxx") }}
+    - ${{ compiler("fortran") }}
+    - make
     - cmake
   host:
     - f2c
     # - superlu # we need dgssv from superlu which is not bundled with conda-forge superlu
 
-test:
-  source_files:
-    - Build_Test_Cases/statics/*
-
-  commands:
-    - test -f ${PREFIX}/bin/mystran  # [unix]
-    - test -f %LIBRARY_PREFIX%\bin\mystran.exe  # [win]
-    - mystran Build_Test_Cases/statics/bar_tube.bdf
-    # - mystran Build_Test_Cases/statics/cquad4_pcomp.bdf
-    - mystran Build_Test_Cases/statics/cshear.bdf
-    - mystran Build_Test_Cases/statics/ctria3_pshell_center.bdf
-    # - mystran Build_Test_Cases/statics/missing_continuation.bdf
+tests:
+  - files:
+      source:
+        - Build_Test_Cases/statics/*
+    script:
+      - if: unix
+        then: test -f ${PREFIX}/bin/mystran
+      - if: win
+        then: test -f %LIBRARY_PREFIX%\bin\mystran.exe
+      - mystran Build_Test_Cases/statics/bar_tube.bdf
+      - mystran Build_Test_Cases/statics/cshear.bdf
+      - mystran Build_Test_Cases/statics/ctria3_pshell_center.bdf
 
 about:
-  home: https://www.mystran.com/
-  summary: 'MYSTRAN is a general purpose finite element analysis computer program for structures.'
+  summary: MYSTRAN is a general purpose finite element analysis computer program for structures.
   license: MIT
   license_file: LICENSE.txt
   description: |
@@ -65,8 +63,10 @@ about:
     themselves), the reduction of the stiffness matrix to the solution set, as
     well as all of the input/output routines are written in independent, modern,
     Fortran 90/95 code.
-  doc_url: https://github.com/MYSTRANsolver/MYSTRAN/tree/main
+  homepage: https://www.mystran.com/
+  documentation: https://github.com/MYSTRANsolver/MYSTRAN/tree/main
 
 extra:
   recipe-maintainers:
     - looooo
+
