@@ -1,0 +1,20 @@
+commit dfd10a38a9c5c2b9c4215f612acd006c285dec60
+Author: looooo <sppedflyer@gmail.com>
+Date:   Wed Jan 8 17:58:17 2025 +0100
+
+    remove duplicate targets
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index eba2f46..4005e68 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -214,7 +214,8 @@ endif()
+ # it appears utils used to be a module, but that is no longer the case?
+ file(GLOB_RECURSE UTIL_FILES "${CMAKE_SOURCE_DIR}/UTIL/*.f*")
+ file(GLOB_RECURSE MAIN_FILES "${CMAKE_SOURCE_DIR}/MAIN/*.[fF]*")
+-add_executable(mystran ${MAIN_FILES} ${MODULES_ALL_FILES} ${UTIL_FILES})
++add_executable(mystran ${MAIN_FILES} ${UTIL_FILES})
++target_link_libraries(mystran MODULES)
+ target_link_libraries(mystran ${modules_names})
+ target_link_libraries(mystran dgssv superlu f2c blas)
+ if (MISSING_FNS_TOTAL GREATER 0)

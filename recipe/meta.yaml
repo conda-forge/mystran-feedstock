@@ -7,32 +7,35 @@ package:
 
 source:
   - url: https://github.com/MYSTRANsolver/MYSTRAN/archive/refs/tags/{{ version }}.tar.gz
-    sha256: 336a3ad04d476b4cd8794361ecf708574a29901240f74c9961fda89d2cdaef5f
+    sha256: 889ee74b5f17a85cff77aa0ffe4f47ff7d918325d113a68e73f856a766682d0f
+    patches:
+      - patches/f2c.patch
+      - patches/remove_duplicate_targets.patch
 
   - url: https://github.com/xiaoyeli/superlu/archive/refs/tags/v6.0.1.tar.gz
     sha256: 6c5a3a9a224cb2658e9da15a6034eed44e45f6963f5a771a6b4562f7afb8f549
     folder: superlu
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
-    - {{ stdlib('c') }}                 # [unix]
-    - {{ compiler('c') }}               # [unix]
-    - {{ compiler('cxx') }}             # [unix]
-    - {{ compiler('fortran') }}         # [unix]
+    - {{ stdlib("c") }}                 # [unix]
+    - {{ compiler("c") }}               # [unix]
+    - {{ compiler("cxx") }}             # [unix]
+    - {{ compiler("fortran") }}         # [unix]
     - {{ stdlib('m2w64_c') }}           # [win]
     - {{ compiler('m2w64_c') }}         # [win]
     - {{ compiler('m2w64_cxx') }}       # [win]
     - {{ compiler('m2w64_fortran') }}   # [win]
+    - make                              # [unix]
     - m2-make                           # [win]
-    - make                              # [not win]
     - cmake
-
+    - ninja                             # [unix]
   host:
+    - f2c
     # - superlu # we need dgssv from superlu which is not bundled with conda-forge superlu
-
 
 test:
   source_files:
@@ -53,20 +56,20 @@ about:
   license: MIT
   license_file: LICENSE.txt
   description: |
-    MYSTRAN is a general purpose finite element analysis computer program 
-    for structures that can be modeled as linear (i.e. displacements, forces 
-    and stresses proportional to applied load). MYSTRAN is an acronym for 
-    "My Structural Analysis", to indicate it's usefulness in solving a wide 
-    variety of finite element analysis problems. For anyone familiar with the 
-    popular NASTRAN computer program developed by NASA (National Aeronautics 
-    and Space Administration) in the 1970's and popularized in several 
-    commercial versions since, the input to MYSTRAN will look quite familiar. 
-    Indeed, many structural analyses modeled for execution in NASTRAN will 
-    execute in MYSTRAN with little, or no, modification. MYSTRAN, however, 
-    is not NASTRAN. All of the finite element processing to obtain the global 
-    stiffness matrix (including the finite element matrix generation routines 
-    themselves), the reduction of the stiffness matrix to the solution set, as 
-    well as all of the input/output routines are written in independent, modern, 
+    MYSTRAN is a general purpose finite element analysis computer program
+    for structures that can be modeled as linear (i.e. displacements, forces
+    and stresses proportional to applied load). MYSTRAN is an acronym for
+    "My Structural Analysis", to indicate it's usefulness in solving a wide
+    variety of finite element analysis problems. For anyone familiar with the
+    popular NASTRAN computer program developed by NASA (National Aeronautics
+    and Space Administration) in the 1970's and popularized in several
+    commercial versions since, the input to MYSTRAN will look quite familiar.
+    Indeed, many structural analyses modeled for execution in NASTRAN will
+    execute in MYSTRAN with little, or no, modification. MYSTRAN, however,
+    is not NASTRAN. All of the finite element processing to obtain the global
+    stiffness matrix (including the finite element matrix generation routines
+    themselves), the reduction of the stiffness matrix to the solution set, as
+    well as all of the input/output routines are written in independent, modern,
     Fortran 90/95 code.
   doc_url: https://github.com/MYSTRANsolver/MYSTRAN/tree/main
 
