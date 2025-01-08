@@ -26,6 +26,7 @@ requirements:
     - {{ compiler("fortran") }}
     - make
     - cmake
+    - ninja
   host:
     - f2c
     # - superlu # we need dgssv from superlu which is not bundled with conda-forge superlu
