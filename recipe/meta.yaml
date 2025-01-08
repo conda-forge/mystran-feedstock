@@ -21,13 +21,18 @@ build:
 
 requirements:
   build:
-    - {{ stdlib("c") }}
-    - {{ compiler("c") }}
-    - {{ compiler("cxx") }}
-    - {{ compiler("fortran") }}
-    - make
+    - {{ stdlib("c") }}                 # [unix]
+    - {{ compiler("c") }}               # [unix]
+    - {{ compiler("cxx") }}             # [unix]
+    - {{ compiler("fortran") }}         # [unix]
+    - {{ stdlib('m2w64_c') }}           # [win]
+    - {{ compiler('m2w64_c') }}         # [win]
+    - {{ compiler('m2w64_cxx') }}       # [win]
+    - {{ compiler('m2w64_fortran') }}   # [win]
+    - make                              # [unix]
+    - m2-make                           # [win]
     - cmake
-    - ninja
+    - ninja                             # [unix]
   host:
     - f2c
     # - superlu # we need dgssv from superlu which is not bundled with conda-forge superlu
