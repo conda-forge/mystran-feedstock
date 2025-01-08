@@ -3,16 +3,13 @@
 set "CC=clang-cl"
 set "CXX=clang-cl"
 
-cmake -B build -S %SRC_DIR% -G "NMake Makefiles" ^
+cmake -B build -S %SRC_DIR% -G "Ninja" ^
       -D CMAKE_BUILD_TYPE="Release" ^
       -D CMAKE_INSTALL_PREFIX:FILEPATH=%LIBRARY_PREFIX%
 
 if %ERRORLEVEL% neq 0 exit 1
 
-cmake --build build -j %NUMBER_OF_PROCESSORS%
-if %ERRORLEVEL% neq 0 exit 1
-
-cmake --install build
+ninja -C build install
 if %ERRORLEVEL% neq 0 exit 1
 
 mkdir %LIBRARY_PREFIX%\bin
