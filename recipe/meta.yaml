@@ -1,5 +1,5 @@
 {% set name = "mystran" %}
-{% set version = "16.0.0" %}
+{% set version = "19.0.0" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   - url: https://github.com/MYSTRANsolver/MYSTRAN/archive/refs/tags/{{ version }}.tar.gz
-    sha256: 98e362ca729df78abedfa6b4da2b86678056935cc6231ed10cdf746ea353c803
+    sha256: d24726d81631a665bf27a8b244a9263aee568dbebbab05b40c2d02c2b5c4dcfc
     patches:
       - patches/f2c.patch                         # [unix]
       - patches/remove_duplicate_targets.patch    # [unix]
